@@ -45,7 +45,7 @@ class FormExample extends React.Component {
     }
 
     doQuery() {
-        var query = 'http://13.250.172.151/elixirbeacon/v03/beacon/query?referenceName='
+        var query = 'http://13.251.26.8/elixirbeacon/v03/beacon/query?referenceName='
         var end = '&assemblyId=GRCh38'
         query = query + this.state.chromosome +'&start=' + this.state.position + '&alternateBases=' + this.state.allele + end
         axios(query)
