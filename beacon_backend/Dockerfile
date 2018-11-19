@@ -1,6 +1,6 @@
 # Dockerfile mostly based on egacrg/beacon
 FROM debian:latest
-MAINTAINER Alfred Gil <alfred.gil@crg.eu>
+MAINTAINER Lorenz Gerber <gebrerlo@gis.a-star.ed.sg>
 RUN apt-get clean -y; \
     apt-get update -y -qq; \
     apt-get install -y --no-install-recommends -q wget netcat postgresql-client default-jre-headless default-jdk-headless
@@ -8,7 +8,7 @@ RUN apt-get clean -y; \
 RUN apt-get -y install maven git  || \
     apt-get -y update && apt-get -y install maven git
 WORKDIR /tmp
-RUN git clone https://github.com/elixirhub/human-data-beacon.git
+RUN git clone https://github.com/lorenzgerber/beacon-elixir.git
 RUN sed -i 's#allowed\.origins=.*$#allowed.origins=*#' /tmp/human-data-beacon/elixir_beacon/src/main/resources/META-INF/corsFilter.properties
 RUN sed -i 's#^\s*datasource.elixirbeacon.url=.*$#datasource.elixirbeacon.url=jdbc\\:postgresql\\://beacon_db\\:5432/elixir_beacon_dev#g' \
     /tmp/human-data-beacon/elixir_beacon/src/main/resources/application-dev.properties
