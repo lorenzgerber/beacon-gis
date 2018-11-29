@@ -10,10 +10,11 @@ services:
     depends_on:
       - beacon_db
   beacon_db:
-    build: https://github.com/lorenzgerber/beacon-db.git
-      context: beacon_db/
+    build: https://github.com/lorenzgerber/beacon-db.git 
     environment:
       POSTGRES_USER: microaccounts_dev
       POSTGRES_PASSWORD: r783qjkldDsiu
       POSTGRES_DB: elixir_beacon_dev
+    volumes:
+      - ./sg10k.tar.gz:/tmp/sg10k.tar.gz
 
