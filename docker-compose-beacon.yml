@@ -17,9 +17,4 @@ services:
       POSTGRES_USER: microaccounts_dev
       POSTGRES_PASSWORD: r783qjkldDsiu
       POSTGRES_DB: elixir_beacon_dev
-  beacon_ui:
-    build:
-      context: beacon_ui/
-    ports:
-      - "80:80"
 
