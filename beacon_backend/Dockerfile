@@ -1,6 +1,6 @@
 # Dockerfile mostly based on egacrg/beacon
 FROM debian:latest
-MAINTAINER Lorenz Gerber <gebrerlo@gis.a-star.ed.sg>
+MAINTAINER Lorenz Gerber <gerberlo@gis.a-star.ed.sg>
 RUN apt-get clean -y; \
     apt-get update -y -qq; \
     apt-get install -y --no-install-recommends -q wget netcat postgresql-client default-jre-headless default-jdk-headless
