@@ -1,8 +1,7 @@
 version: "2"
 services:
   beacon:
-    build:
-      context: beacon_backend/
+    build: https://github.com/lorenzgerber/beacon-elixir.git
     # Backend will be reachable at http://127.0.0.1:9075/
     ports:
       - "80:9075"
@@ -11,7 +10,7 @@ services:
     depends_on:
       - beacon_db
   beacon_db:
-    build:
+    build: https://github.com/lorenzgerber/beacon-db.git
       context: beacon_db/
     environment:
       POSTGRES_USER: microaccounts_dev
