@@ -17,15 +17,20 @@ At GIS, the first iteration of Beacon used an early version of the Java Beacon. 
 * [beacon-ui-react](https://github.com/lorenzgerber/beacon-ui-react)
     * This repo contains the source for the frontend. The Dockerfile describes a two-stage build: Stage 0 builds the actual node.js application and which is copied into stage 1 which is based on an official nginx image.
 
-To automate deployment of the setup, AWS EC2 launch scripts using cloudinit are available in a repository for both the [backend](https://github.com/lorenzgerber/aws_launchers/tree/master/beacon-gis) and the [frontend](https://github.com/lorenzgerber/aws_launchers/tree/master/beacon-ui-nginx). The backend launch scripts make use of a (non-public) [S3 bucket](https://s3-ap-southeast-1.amazonaws.com/data.beacon) where the data is stored. The data consists of a `tar.gz` archive that contains parsed `vcf` files. Parsing of `vcf` files is a preparation step to be done prior to deployment. A parse script is provided in the beacon-elixir project. The parsed data (three types of `csv` files) is loaded into the database on startup.
+To automate deployment of the setup, AWS EC2 launch scripts using cloudinit are available in a repository for both the [backend](https://github.com/lorenzgerber/aws_launchers/tree/master/beacon-gis) and the [frontend](https://github.com/lorenzgerber/aws_launchers/tree/master/beacon-ui-nginx). The backend launch scripts make use of a (non-public) [S3 bucket](https://s3-ap-southeast-1.amazonaws.com/data.beacon) where the data is stored. The data consists of a `tar.gz` archive that contains parsed `vcf` files. Parsing of `vcf` files is a preparation step to be done prior to deployment. A [parse script](https://raw.githubusercontent.com/ga4gh-beacon/beacon-elixir/master/elixir_beacon/src/main/resources/META-INF/vcf_parser.sh) is provided in the beacon-elixir project. The parsed data (three `csv` files) are loaded into the database on startup.
 
 The deployment of the backend is done into the RPD AWS account while the frontend in the Ronin AWS account. The reason for the Ronin account is that Ronin owns the .genome.sg domain. The routing is done through Route53 on AWS. The routing needs to be on a ignore list in the Ronin internal system, else, the routing gets removed automatically after a short time.
 
 ## Step by Step - Deployment
-1. Parse Data
+1. Parse Data  
+The [parse script](https://raw.githubusercontent.com/ga4gh-beacon/beacon-elixir/master/elixir_beacon/src/main/resources/META-INF/vcf_parser.sh) expects a default vcf file. Ideally, the vcf file contains in the `INFO` section the tags `AC`, `AN` and `AC`. These `.vcf` fields translate to the following Beacon fields:
+    * `AN`: total number of alleles in called genotypes -> `callCount`
+    * `AC`: allele count in genotypes, for each ALT allele in same order as listed -> `variantCount`
+    * `AF`: allele frequency for each ALT allele in the same order as listed -> `frequency` 
 2. Compress parsed data into tar.gz
 3. Uploade parsed data to S3
 4. Launch backend instance
 5. ssh into backend and docker-compose up the system
 6. Lauch frontend instance
 7. Adjust public IP address in Route53 
+
