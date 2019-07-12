@@ -6,7 +6,9 @@ Beacon is a REST API for feature discovery in genomic datasets. The API is defin
 There are a number of implementations of the above mentioned API specification. Notably one in [Java](https://github.com/ga4gh-beacon/beacon-elixir) using the Spring framework and one in [Python](https://github.com/CSCfi/beacon-python). In the Beacon developer related [Slack](beacon-team.slack.com) forum, the original python version is coloquially called the "Finnish Beacon". Of the Finnish Beacon exists a [fork](https://github.com/NBISweden/beacon-python) with certain modifications in the database structure which is called the "Swedish Beacon".
 
 ## The GIS Beacon - Overview
-At GIS, the first iteration of Beacon used an early version of the Java Beacon. The general architeture consist of an Java Spring Boot application as REST API / backend. It connects by default to a Postgres database. As frontend, a very simple React frontend, merely a HTML form, was implemented. At GIS, we use a dockerized version of the application. Below is a list of the related repositories:
+At GIS, the first iteration of Beacon used an early version of the Java Beacon. The general architeture consist of an Java Spring Boot application as REST API / backend. It connects by default to a Postgres database. As frontend, a very simple React frontend, merely a HTML form, was implemented. At GIS, we use a dockerized version of the application. 
+
+Below is a list of the related repositories:
 
 * [beacon-gis](https://github.com/lorenzgerber/beacon-gis)
     * This repo contains the docker-compose script to start the backend. In the current version, it needs to be started manually by ssh-ing into the respective instance.
